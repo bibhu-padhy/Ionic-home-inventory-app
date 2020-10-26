@@ -6,6 +6,26 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    children: [
+      {
+        path: 'items-list',
+        loadChildren: () => import('src/app/items-list/items-list.module').then(m => m.ItemsListModule)
+      },
+      {
+        path: 'inventory',
+        loadChildren: () => import('src/app/inventory/inventory.module').then(m => m.InventoryModule)
+      },
+      {
+        path: '',
+        redirectTo: '/home/items-list',
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {
+    path: '',
+    redirectTo: '/home/items-list',
+    pathMatch: 'full'
   }
 ];
 
@@ -13,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }

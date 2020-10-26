@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "inventario-app-b1": {
+      "hosting": {
+        "app": [
+          "inventario-app-b1"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<section class="popover_container">
+  <ion-item (click)="loginService.logout();toolbarService.closePopover()">
+    <ion-label>
+      Logout
+    </ion-label>
+    <ion-icon name="log-out" slot="end"></ion-icon>
+  </ion-item>
+
+  <ion-item (click)="toolbarService.closePopover()">
+    <ion-label>
+      Account
+    </ion-label>
+    <ion-icon name="person-outline" slot="end"></ion-icon>
+  </ion-item>
+</section>

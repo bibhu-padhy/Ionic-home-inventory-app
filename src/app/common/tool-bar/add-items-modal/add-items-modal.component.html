@@ -1,0 +1,32 @@
+<ion-toolbar>
+  <ion-title>Add items</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="toolbarService.dismiss(null)" slot="end">
+      <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <form [formGroup]="AddItemsForm">
+    <ion-item>
+      <ion-label position="stacked">Item Name <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input formControlName="ItemName" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Item Quantity <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input formControlName="ItemQuantity" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Item Price
+      </ion-label>
+      <ion-input formControlName="ItemPrice" type="number"></ion-input>
+    </ion-item>
+    <br>
+    <ion-button (click)="onSubmit(AddItemsForm.value)" slot="end" block>
+      Add
+    </ion-button>
+  </form>
+</ion-content>
