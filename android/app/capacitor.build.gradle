@@ -10,7 +10,9 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
 
-
+    implementation "com.google.firebase:firebase-auth:19.3.+"
+    implementation "com.google.android.gms:play-services-auth:15.0.1"
+    implementation "com.google.android.gms:play-services-identity:15.0.1"
 }
 
 

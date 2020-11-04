@@ -5,6 +5,7 @@ import { ToolBarComponent } from './tool-bar.component';
 import { IonicModule } from '@ionic/angular';
 import { AddItemsModalComponent } from './add-items-modal/add-items-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from 'src/app/login/services/login.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     IonicModule,
     ReactiveFormsModule,
     FormsModule
+  ],
+  providers: [
+    LoginService
   ]
 })
 export class ToolBarModule { }
