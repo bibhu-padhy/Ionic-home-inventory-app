@@ -8,7 +8,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { ToastController } from '@ionic/angular';
 
 export interface EmailLogin {
-  DisplayName: string;
+  DisplayName?: string;
   Email: string;
   Password: string;
 }
@@ -24,6 +24,9 @@ interface UserDataModel {
   providedIn: 'root'
 })
 export class LoginService {
+
+
+
   constructor(
     public afAuth: AngularFireAuth,
     private fireStore: AngularFirestore,
@@ -51,7 +54,23 @@ export class LoginService {
     // }
   }
 
-  async loginWithEmailAndPasworo(UserData: EmailLogin): Promise<string> {
+  async loginWithEmailAndPasword(email, password) {
+    try {
+      const user = await this.afAuth.signInWithEmailAndPassword(email, password);
+      if (user) {
+        this.router.navigateByUrl('/home');
+      }
+    } catch (error) {
+      const toast = await this.toastController.create({
+        position: 'top',
+        message: error.message,
+        duration: 2000
+      });
+      toast.present();
+    }
+  }
+
+  async registerWithEmailAndPasworo(UserData: EmailLogin): Promise<string> {
     try {
       const user = await this.afAuth.createUserWithEmailAndPassword(UserData.Email, UserData.Password);
       if (user.additionalUserInfo.isNewUser) {

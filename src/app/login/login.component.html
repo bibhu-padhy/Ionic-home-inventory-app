@@ -3,8 +3,9 @@
 
 
   <div class="login_container">
+    <h2> {{isNewUser?'Register':'Login'}}</h2>
     <form [formGroup]="loginForm">
-      <ion-item>
+      <ion-item *ngIf="isNewUser">
         <ion-label position="fixed">Name</ion-label>
         <ion-input formControlName="DisplayName" type="text"></ion-input>
       </ion-item>
@@ -17,14 +18,16 @@
         <ion-input formControlName="Password" type="password"></ion-input>
       </ion-item>
       <br>
-      <ion-button (click)="handleLogin(loginForm.value)" color="light" size="small">
-        Login
-      </ion-button>
+      <div class="auth_button_wrapper">
+        <ion-button (click)="handeAuthentication(loginForm.value)" color="light" size="small">
+          {{isNewUser?'Register':'Login'}}
+        </ion-button>
+        <a class="a_link" (click)="isNewUser = !isNewUser">{{isNewUser?'Login':'Exist User'}}</a>
+      </div>
     </form>
-
-    <ion-button disabled (click)="authService.googleSignin()" color="light" size="small">
+    <!-- <ion-button disabled (click)="authService.googleSignin()" color="light" size="small">
       <ion-icon class="i_google" name="logo-google"></ion-icon>
       Login
-    </ion-button>
+    </ion-button> -->
   </div>
 </ion-content>

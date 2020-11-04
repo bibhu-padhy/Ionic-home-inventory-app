@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../common/services/auth.service';
 import { EmailLogin, LoginService } from './services/login.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { EmailLogin, LoginService } from './services/login.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
+  isNewUser: boolean = true;
   loginForm: FormGroup;
 
   constructor(
@@ -17,21 +16,34 @@ export class LoginComponent {
     private fb: FormBuilder
   ) {
     this.loginForm = this.fb.group({
-      DisplayName: ['', [Validators.required]],
+      DisplayName: [''],
       Email: ['', [Validators.required, Validators.email]],
       Password: ['', [Validators.required, Validators.minLength(4)]]
     });
+
+    this.loginForm.reset();
   }
 
-  async handleLogin(formData: EmailLogin) {
-    if (this.loginForm.valid) {
-      const userUid = await this.authService.loginWithEmailAndPasworo(formData);
-      if (userUid) {
-        console.log(userUid);
-      } else {
-        console.log('login failed');
-      }
+  handeAuthentication(formData: EmailLogin) {
+    if (this.isNewUser) {
+      this.handleRegistration(formData);
+    } else {
+      this.handelLogin(formData);
     }
   }
+
+  handelLogin(formData: EmailLogin) {
+    if (this.loginForm.valid) {
+      this.authService.loginWithEmailAndPasword(formData.Email, formData.Password)
+    }
+  }
+
+  async handleRegistration(formData: EmailLogin) {
+    if (this.loginForm.valid) {
+      const userUid = await this.authService.registerWithEmailAndPasworo(formData);
+    }
+  }
+
+
 
 }
