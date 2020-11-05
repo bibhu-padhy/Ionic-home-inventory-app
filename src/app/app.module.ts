@@ -12,12 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // firebase deps
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from 'util.config';
-import { FirebaseAuthentication } from '@ionic-native/firebase-authentication';
 
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,10 +28,12 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
     AngularFirestoreModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
-    // FirebaseAuthentication
   ],
   providers: [
-    GooglePlus,
+    {
+      provide: SETTINGS,
+      useValue: { host: 'localhost:8080', ssl: false }
+    },
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

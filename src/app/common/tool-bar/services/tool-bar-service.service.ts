@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { ItemsDataModel } from 'src/app/items-list/items.model';
+import { ItemsListService } from 'src/app/items-list/services/items-list.service';
 import { AddItemsModalComponent } from '../add-items-modal/add-items-modal.component';
 import { PoopOversComponent } from '../poop-overs/poop-overs.component';
 
@@ -10,13 +11,13 @@ import { PoopOversComponent } from '../poop-overs/poop-overs.component';
 })
 export class ToolBarService {
 
-  formData$: BehaviorSubject<ItemsDataModel | null> = new BehaviorSubject(null);
+  private formData$: BehaviorSubject<ItemsDataModel | null> = new BehaviorSubject(null);
 
   returnedFormData = this.formData$.asObservable();
 
-
   constructor(
     private modalController: ModalController,
+    private itemsService: ItemsListService,
     private popoverController: PopoverController
   ) { }
 
@@ -27,8 +28,9 @@ export class ToolBarService {
 
     modal.onDidDismiss()
       .then((dataReturned: any) => {
-        if (dataReturned) {
-          this.formData$.next(dataReturned.data);
+        if (dataReturned.data) {
+          this.itemsService.storeItemsData(dataReturned.data);
+          // this.formData$.next(dataReturned.data);
         } else {
           this.formData$.next(dataReturned.data);
         }

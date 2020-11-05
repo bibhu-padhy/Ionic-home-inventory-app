@@ -12,11 +12,13 @@ import { ItemsListService } from './services/items-list.service';
 })
 export class ItemsListComponent implements OnInit {
 
+
   constructor(
     private toolbarService: ToolBarService,
     private itemsService: ItemsListService,
-    private toastService: ToastService
+    private toastService: ToastService,
   ) { }
+
 
   ngOnInit() {
     this.toolbarService.returnedFormData

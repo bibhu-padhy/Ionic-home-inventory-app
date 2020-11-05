@@ -20,7 +20,7 @@ export class AddItemsModalComponent implements OnInit {
   constructor(
     public toolbarService: ToolBarService,
     private fb: FormBuilder,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {
 
     this.AddItemsForm = this.fb.group({
@@ -42,11 +42,12 @@ export class AddItemsModalComponent implements OnInit {
       .pipe(
         map((user) => {
           formData.UserId = user.uid;
+          console.log(user);
           return formData;
         })
       )
       .subscribe(res => {
-        this.toolbarService.dismiss(formData);
+        this.toolbarService.dismiss(res);
       });
   }
 

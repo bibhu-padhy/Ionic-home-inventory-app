@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
-import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { ToastController } from '@ionic/angular';
+import { ToastService } from 'src/app/common/services/toast/toast.service';
 
 export interface EmailLogin {
   DisplayName?: string;
@@ -31,27 +28,26 @@ export class LoginService {
     public afAuth: AngularFireAuth,
     private fireStore: AngularFirestore,
     private router: Router,
-    private googlePlus: GooglePlus,
-    private toastController: ToastController
+    private toastService: ToastService,
   ) { }
 
   async googleSignin() {
-    const credential = await this.googlePlus.login({});
-    alert(credential)
-    // this.firebaseAuthentication.signInWithGoogle()
-    // const credential = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
-    if (credential) {
-      this.router.navigateByUrl('/home');
-    }
-
-    // if (credential.additionalUserInfo.isNewUser) {
-    //   this.storeNewUserData({
-    //     DisplayName: credential.user.displayName,
-    //     Email: credential.user.email,
-    //     PhotoUrl: credential.user.photoURL,
-    //     Uid: credential.user.uid
-    //   });
+    // // const credential = await this.googlePlus.login({});
+    // alert(credential)
+    // // this.firebaseAuthentication.signInWithGoogle()
+    // // const credential = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
+    // // if (credential) {
+    //   this.router.navigateByUrl('/home');
     // }
+
+    // // if (credential.additionalUserInfo.isNewUser) {
+    // //   this.storeNewUserData({
+    // //     DisplayName: credential.user.displayName,
+    // //     Email: credential.user.email,
+    // //     PhotoUrl: credential.user.photoURL,
+    // //     Uid: credential.user.uid
+    // //   });
+    // // }
   }
 
   async loginWithEmailAndPasword(email, password) {
@@ -61,12 +57,9 @@ export class LoginService {
         this.router.navigateByUrl('/home');
       }
     } catch (error) {
-      const toast = await this.toastController.create({
-        position: 'top',
-        message: error.message,
-        duration: 2000
-      });
-      toast.present();
+      if (error.message) {
+        this.toastService.presentToast(error.message);
+      }
     }
   }
 
@@ -87,11 +80,7 @@ export class LoginService {
       return user.user.uid;
     } catch (error) {
       if (error.message) {
-        const toast = await this.toastController.create({
-          message: error.message,
-          duration: 2000
-        });
-        toast.present();
+        this.toastService.presentToast(error.message);
       }
     }
 

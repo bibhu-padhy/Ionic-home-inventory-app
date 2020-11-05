@@ -13,6 +13,7 @@ export class ItemsListService {
 
 
   async storeItemsData(data: ItemsDataModel) {
+    console.log(data);
     const response = await this.fireStore.collection('items_list').add(data);
     return { ItemId: response.id };
   }

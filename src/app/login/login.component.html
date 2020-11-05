@@ -22,7 +22,7 @@
         <ion-button (click)="handeAuthentication(loginForm.value)" color="light" size="small">
           {{isNewUser?'Register':'Login'}}
         </ion-button>
-        <a class="a_link" (click)="isNewUser = !isNewUser">{{isNewUser?'Login':'Exist User'}}</a>
+        <a class="a_link" (click)="isNewUser = !isNewUser">{{isNewUser?'Exist User':'New User'}}</a>
       </div>
     </form>
     <!-- <ion-button disabled (click)="authService.googleSignin()" color="light" size="small">
