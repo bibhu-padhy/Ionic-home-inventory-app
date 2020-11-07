@@ -31,6 +31,7 @@ export class AddItemsModalComponent implements OnInit {
       IsCompleted: false,
       UpdatedAt: [''],
       UserId: null,
+      ItemType: ['', [Validators.required]],
     });
   }
 
@@ -38,17 +39,19 @@ export class AddItemsModalComponent implements OnInit {
 
 
   async onSubmit(formData) {
-    this.loginService.afAuth.authState
-      .pipe(
-        map((user) => {
-          formData.UserId = user.uid;
-          console.log(user);
-          return formData;
-        })
-      )
-      .subscribe(res => {
-        this.toolbarService.dismiss(res);
-      });
+    if (this.AddItemsForm.valid) {
+      this.loginService.afAuth.authState
+        .pipe(
+          map((user) => {
+            formData.UserId = user.uid;
+            console.log(user);
+            return formData;
+          })
+        )
+        .subscribe(res => {
+          this.toolbarService.dismiss(res);
+        });
+    }
   }
 
 }

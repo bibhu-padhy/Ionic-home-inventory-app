@@ -6,4 +6,5 @@ export interface ItemsDataModel {
     IsCompleted: boolean;
     UpdatedAt: Date;
     UserId: string;
+    ItemType: 'LIQUID' | 'SOILD' | 'POWDER';
 }

@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from 'util.config';
+import { ToolBarModule } from './common/tool-bar/tool-bar.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { firebaseConfig } from 'util.config';
     AngularFirestoreModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
+    ToolBarModule
   ],
   providers: [
     {

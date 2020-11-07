@@ -1,1 +1,12 @@
-<app-tool-bar></app-tool-bar>
+<ion-card #itemRef *ngFor="let p of Peoples">
+    <div *ngIf="p.isEligible">
+        <ion-card-header>
+            <ion-card-subtitle>
+                {{p.name}}
+            </ion-card-subtitle>
+            <ion-card-title>
+                {{p.age}}
+            </ion-card-title>
+        </ion-card-header>
+    </div>
+</ion-card>

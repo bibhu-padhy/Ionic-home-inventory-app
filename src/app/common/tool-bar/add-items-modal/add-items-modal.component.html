@@ -20,6 +20,15 @@
       <ion-input formControlName="ItemQuantity" type="text"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label position="stacked">Item Type <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-select formControlName="ItemType">
+        <ion-select-option value="SOILD">SOILD</ion-select-option>
+        <ion-select-option value="LIQUID">LIQUID</ion-select-option>
+        <ion-select-option value="POWDER">POWDER</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
       <ion-label position="stacked">Item Price
       </ion-label>
       <ion-input formControlName="ItemPrice" type="number"></ion-input>
