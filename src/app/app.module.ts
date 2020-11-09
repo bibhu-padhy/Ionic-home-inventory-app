@@ -34,7 +34,7 @@ import { ToolBarModule } from './common/tool-bar/tool-bar.module';
   providers: [
     {
       provide: SETTINGS,
-      useValue: { host: 'localhost:8080', ssl: false }
+      useValue: { host: 'localhost:9090', ssl: false }
     },
     StatusBar,
     SplashScreen,

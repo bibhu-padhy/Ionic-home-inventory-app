@@ -1,13 +1,7 @@
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
-import { Gesture, GestureController, IonCard } from '@ionic/angular';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Gesture, GestureController, IonItem, IonLabel } from '@ionic/angular';
+import { ItemsDataModel } from './items.model';
 import { ItemsListService } from './services/items-list.service';
-
-interface PeopleDataModal {
-  name: string;
-  age: number;
-  isEligible: boolean;
-  id: number;
-}
 
 @Component({
   selector: 'app-items-list',
@@ -16,35 +10,59 @@ interface PeopleDataModal {
 })
 export class ItemsListComponent implements OnInit, AfterViewInit {
 
-  public Peoples: PeopleDataModal[] = [
-    {
-      id: 1,
-      name: 'bibhu',
-      age: 25,
-      isEligible: true
-    },
 
-    {
-      id: 2,
-      name: 'shyam',
-      age: 17,
-      isEligible: false
-    },
-    {
-      id: 3,
-      name: 'ram',
-      age: 26,
-      isEligible: true
-    },
-    {
-      id: 4,
-      name: 'test user',
-      age: 25,
-      isEligible: true
-    },
-  ];
+  itemsList: ItemsDataModel[] = [];
+  private itemRef: QueryList<ElementRef>;
+  @ViewChildren('itemRef') set content(content: QueryList<ElementRef<IonItem>>) {
+    if (content) {
+      content.forEach((item: ElementRef<IonItem>, index) => {
+        console.log(item.el);
 
-  @ViewChildren(IonCard, { read: ElementRef }) itemRef: QueryList<ElementRef>;
+        const gesture: Gesture = this.gestureCtrl.create({
+          el: item.el,
+          gestureName: `swipeable-card${index}`,
+          onMove: ev => {
+            this.renderer.setStyle(
+              item.el,
+              'transform',
+              `translateX(${ev.deltaX}px)`
+            );
+          },
+          onStart: ev => {
+            this.renderer.setStyle(
+              item.el,
+              'border',
+              'dashed 4px #000'
+            );
+          },
+          onEnd: ev => {
+            this.renderer.removeStyle(
+              item.el,
+              'border'
+            );
+            if (ev.deltaX > 135 || ev.deltaX < -135) {
+              console.log(this.itemsList[index].ItemId);
+              this.itemsListService.changeItemState(this.itemsList[index].ItemId, true);
+              this.renderer.setStyle(
+                item.el,
+                'display',
+                `none`,
+              );
+            } else {
+              this.renderer.setStyle(
+                item.el,
+                'transform',
+                `translateX(0px)`
+              );
+            }
+          },
+        });
+
+        gesture.enable();
+      });
+
+    }
+  }
 
   constructor(
     public itemsListService: ItemsListService,
@@ -52,58 +70,18 @@ export class ItemsListComponent implements OnInit, AfterViewInit {
     public renderer: Renderer2
   ) { }
 
-  async ngAfterViewInit() {
-    console.log(this.itemRef.forEach(console.log));
-    this.itemRef.forEach((item, index) => {
-      const gesture: Gesture = this.gestureCtrl.create({
-        el: item.nativeElement,
-        gestureName: `swipeable-card${index}`,
-        onMove: ev => {
-          this.renderer.setStyle(
-            item.nativeElement,
-            'transform',
-            `translateX(${ev.deltaX}px)`
-          );
-        },
-        onStart: ev => {
-          this.renderer.setStyle(
-            item.nativeElement,
-            'border',
-            'dashed 4px #000'
-          );
-        },
-        onEnd: ev => {
-          this.renderer.removeStyle(
-            item.nativeElement,
-            'border'
-          );
-          if (ev.deltaX > 135 || ev.deltaX < -135) {
-            const selectedItem = this.Peoples.find(i => i.id === index + 1);
-            selectedItem.isEligible = false;
-            if (selectedItem) {
-              this.renderer.setStyle(
-                item.nativeElement,
-                'display',
-                `none`,
-              );
-            }
-            this.Peoples = [...this.Peoples];
-            console.log(this.Peoples);
-          } else {
-            this.renderer.setStyle(
-              item.nativeElement,
-              'transform',
-              `translateX(0px)`
-            );
-          }
-        },
+  async ngAfterViewInit() { }
+
+  ngOnInit() {
+
+    this.itemsListService.getItemsList(false)
+      .subscribe(items => {
+        console.log(items);
+        if (items && items.length > 0) {
+          this.itemsList = items;
+        }
       });
-      gesture.enable();
-    });
-
   }
-
-  ngOnInit() { }
 
 
 }

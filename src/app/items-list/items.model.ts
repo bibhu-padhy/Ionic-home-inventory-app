@@ -1,4 +1,5 @@
 export interface ItemsDataModel {
+    ItemId: string
     ItemName: string;
     ItemQuantity: string;
     ItemPrice: number;

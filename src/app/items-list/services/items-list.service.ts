@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { ToastService } from 'src/app/common/services/toast/toast.service';
 import { ItemsDataModel } from '../items.model';
 
 @Injectable({
@@ -11,7 +13,8 @@ export class ItemsListService {
 
   constructor(
     private fireStore: AngularFirestore,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private toastService: ToastService
   ) { }
 
 
@@ -20,7 +23,7 @@ export class ItemsListService {
     return { ItemId: response.id };
   }
 
-  getItemsList() {
+  getItemsList(isCompletedValue: boolean): Observable<any> {
     const items = this.auth.authState
       .pipe(
         switchMap(user => {
@@ -30,14 +33,23 @@ export class ItemsListService {
                 collectionRef
                   .orderBy('CreatedAt', 'desc')
                   .where('UserId', '==', user?.uid)
-                  .where('IsCompleted', '==', false)
-            )
-              .valueChanges({ idField: 'ItemId' });
+                  .where('IsCompleted', '==', isCompletedValue)
+            ).valueChanges({ idField: 'ItemId' });
           }
         })
-        , tap(console.log)
+        , tap(data => console.log(data))
       );
     return items;
+  }
 
+  changeItemState(docId: string, isCompletedValue: boolean) {
+    this.fireStore.doc(`items_list/${docId}`)
+      .update({ IsCompleted: isCompletedValue })
+      .then(item => {
+        this.toastService.presentToast(`Item has been moved to the ${isCompletedValue ? 'Inventory' : 'Items List'}`);
+      })
+      .catch(error => {
+        this.toastService.presentToast('Please refresh');
+      });
   }
 }

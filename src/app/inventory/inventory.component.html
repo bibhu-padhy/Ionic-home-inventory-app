@@ -1,0 +1,23 @@
+<ion-list *ngIf="itemsList.length> 0;else NoItem">
+    <ion-item #itemRef *ngFor="let item of itemsList">
+        <ion-label>
+            <div class="item_layout">
+                <span>
+                    {{item.ItemName}}
+                </span>
+                <span>
+                    {{item.ItemQuantity}}
+                </span>
+                <span>
+                    {{item.ItemType}}
+                </span>
+            </div>
+
+        </ion-label>
+    </ion-item>
+</ion-list>
+<ng-template #NoItem>
+    <h2 color="warning">
+        No Item
+    </h2>
+</ng-template>

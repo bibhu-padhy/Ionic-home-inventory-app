@@ -1,11 +1,11 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="items-list">
+    <ion-tab-button [routerLink]="['/home/items-list']">
       <ion-icon name="list-outline"></ion-icon>
       <ion-label>Item List</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="inventory">
+    <ion-tab-button [routerLink]="['/home/inventory']">
       <ion-icon name="nutrition-outline"></ion-icon>
       <ion-label>Inventory</ion-label>
     </ion-tab-button>
