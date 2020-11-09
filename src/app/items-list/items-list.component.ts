@@ -29,27 +29,13 @@ export class ItemsListComponent implements OnInit, AfterViewInit {
             );
           },
           onStart: ev => {
-            // this.renderer.setStyle(
-            //   item.el,
-            //   'border',
-            //   'dashed 4px #000'
-            // );
             this.renderer.addClass(item.el, 'on_swipe');
           },
           onEnd: ev => {
-            // this.renderer.removeStyle(
-            //   item.el,
-            //   'border'
-            // );
             this.renderer.removeClass(item.el, 'on_swipe');
             if (ev.deltaX > 135 || ev.deltaX < -135) {
               console.log(this.itemsList[index].ItemId);
               this.itemsListService.changeItemState(this.itemsList[index].ItemId, true);
-              this.renderer.setStyle(
-                item.el,
-                'display',
-                `none`,
-              );
             } else {
               this.renderer.setStyle(
                 item.el,
