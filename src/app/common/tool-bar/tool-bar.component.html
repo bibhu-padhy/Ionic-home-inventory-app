@@ -2,14 +2,18 @@
   <ion-title>
     Invantorio
   </ion-title>
-  <ion-buttons slot="secondary">
-    <ion-button (click)="toolbarService.presentModal()">
-      <ion-icon name="add-circle-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-buttons (click)="toolbarService.presentPopover($event)" slot="primary">
-    <ion-button>
-      <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
-    </ion-button>
-  </ion-buttons>
+
+  <ng-container *ngIf="afAuth.user|async">
+    <ion-buttons slot="secondary">
+      <ion-button (click)="toolbarService.presentModal()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons (click)="toolbarService.presentPopover($event)" slot="primary">
+      <ion-button>
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ng-container>
+
 </ion-toolbar>

@@ -14,7 +14,7 @@ export class InventoryComponent implements OnInit {
   private itemRef: QueryList<ElementRef>;
   @ViewChildren('itemRef') set content(content: QueryList<ElementRef<IonItem>>) {
     if (content) {
-      content.forEach((item: ElementRef<IonItem>, index) => {
+      content.forEach((item: any, index) => {
         console.log(item.el);
 
         const gesture: Gesture = this.gestureCtrl.create({
@@ -28,16 +28,15 @@ export class InventoryComponent implements OnInit {
             );
           },
           onStart: ev => {
-            this.renderer.setStyle(
+            this.renderer.addClass(
               item.el,
-              'border',
-              'dashed 4px #000'
+              'on_swipe',
             );
           },
           onEnd: ev => {
-            this.renderer.removeStyle(
+            this.renderer.removeClass(
               item.el,
-              'border'
+              'on_swipe',
             );
             if (ev.deltaX > 135 || ev.deltaX < -135) {
               console.log(this.itemsList[index].ItemId);

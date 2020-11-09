@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { ToolBarService } from './services/tool-bar-service.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { ToolBarService } from './services/tool-bar-service.service';
 export class ToolBarComponent implements OnInit {
 
   constructor(
-    public toolbarService: ToolBarService
+    public toolbarService: ToolBarService,
+    public afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() { }
