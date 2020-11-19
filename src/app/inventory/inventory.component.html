@@ -1,5 +1,5 @@
 <ion-list *ngIf="itemsList.length> 0;else NoItem">
-    <ion-item style="margin-top: 10px;" #itemRef *ngFor="let item of itemsList">
+    <ion-item class="items_list" #itemRef *ngFor="let item of itemsList">
         <ion-label>
             <div class="item_layout">
                 <span>

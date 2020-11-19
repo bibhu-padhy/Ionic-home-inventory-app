@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { auth } from 'firebase/app';
 import { ToastService } from 'src/app/common/services/toast/toast.service';
 
 export interface EmailLogin {
@@ -32,22 +33,22 @@ export class LoginService {
   ) { }
 
   async googleSignin() {
-    // // const credential = await this.googlePlus.login({});
+    // const credential = await this.googlePlus.login({});
     // alert(credential)
-    // // this.firebaseAuthentication.signInWithGoogle()
-    // // const credential = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
-    // // if (credential) {
-    //   this.router.navigateByUrl('/home');
+    // this.firebaseAuthentication.signInWithGoogle()
+    const credential = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
+    // if (credential) {
+    // this.router.navigateByUrl('/home');
     // }
 
-    // // if (credential.additionalUserInfo.isNewUser) {
-    // //   this.storeNewUserData({
-    // //     DisplayName: credential.user.displayName,
-    // //     Email: credential.user.email,
-    // //     PhotoUrl: credential.user.photoURL,
-    // //     Uid: credential.user.uid
-    // //   });
-    // // }
+    // if (credential.additionalUserInfo.isNewUser) {
+    //   this.storeNewUserData({
+    //     DisplayName: credential.user.displayName,
+    //     Email: credential.user.email,
+    //     PhotoUrl: credential.user.photoURL,
+    //     Uid: credential.user.uid
+    //   });
+    // }
   }
 
   async loginWithEmailAndPasword(email, password) {

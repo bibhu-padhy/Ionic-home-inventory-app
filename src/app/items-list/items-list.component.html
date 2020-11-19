@@ -1,20 +1,22 @@
-<ion-list *ngIf="itemsList.length> 0;else NoItem">
-    <ion-item style="margin-top: 10px;" #itemRef *ngFor="let item of itemsList">
-        <ion-label>
-            <div class="item_layout">
-                <span>
-                    {{item.ItemName}}
-                </span>
-                <span>
-                    {{item.ItemQuantity}}
-                </span>
-                <span>
-                    {{item.ItemType}}
-                </span>
-            </div>
+<ion-list *ngIf="(itemsList$|async) as itemsList">
+    <div *ngIf="itemsList && itemsList.length > 0;else NoItem">
+        <ion-item class="items_list" style="margin-top: 10px;" #itemRef *ngFor="let item of itemsList">
+            <ion-label class="ion_label">
+                <div class="item_layout">
+                    <span>
+                        {{item.ItemName}}
+                    </span>
+                    <span>
+                        {{item.ItemQuantity}}
+                    </span>
+                    <span>
+                        {{item.ItemType}}
+                    </span>
+                </div>
 
-        </ion-label>
-    </ion-item>
+            </ion-label>
+        </ion-item>
+    </div>
 </ion-list>
 <ng-template #NoItem>
     <h2 color="warning">

@@ -5,6 +5,7 @@ import { InventoryRoutingModule } from './inventory-routing.module';
 import { InventoryComponent } from './inventory.component';
 import { ToolBarModule } from '../common/tool-bar/tool-bar.module';
 import { IonicModule } from '@ionic/angular';
+import { OnSwipeService } from '../common/services/gestures/on-swipe.service';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { IonicModule } from '@ionic/angular';
     InventoryRoutingModule,
     ToolBarModule,
     IonicModule
-  ]
+  ],
+  providers: [{ provide: OnSwipeService, useClass: OnSwipeService }]
 })
 export class InventoryModule { }
