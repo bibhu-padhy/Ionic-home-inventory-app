@@ -19,6 +19,11 @@
     margin-top: 10px;
 }
 
+.smoth_slide {
+    transform: translateX(-150px);
+    transition: all 200ms ease-in;
+}
+
 .on_tab_active {
     color: gray !important;
     font-weight: bold !important;
