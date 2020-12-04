@@ -2,15 +2,23 @@
     <ion-item class="items_list" #itemRef *ngFor="let item of itemsList">
         <ion-label>
             <div class="item_layout">
-                <span>
-                    {{item.ItemName}}
-                </span>
-                <span>
-                    {{item.ItemQuantity}}
-                </span>
-                <span>
-                    {{item.ItemType}}
-                </span>
+                <div class="item_layout_details">
+                    <span>
+                        {{item.ItemName}}
+                    </span>
+                    <span>
+                        {{item.ItemQuantity}}
+                    </span>
+                    <span>
+                        {{item.ItemType}}
+                    </span>
+                </div>
+                <!-- <ion-buttons (click)="showMenu($event)" slot="primary">
+                    <ion-button> -->
+                <ion-icon slot="icon-only" (click)="showMenu($event)" ios="ellipsis-horizontal" md="ellipsis-vertical">
+                </ion-icon>
+                <!-- </ion-button>
+                </ion-buttons> -->
             </div>
 
         </ion-label>

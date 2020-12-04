@@ -1,5 +1,12 @@
 .item_layout {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+
+    .item_layout_details {
+        flex: 1;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
 }
